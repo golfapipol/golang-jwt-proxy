@@ -39,8 +39,9 @@ func GenerateJWT(requestedTime time.Time, data interface{}, secret string) (stri
 		return "", err
 	}
 	encodedHeader := base64.StdEncoding.EncodeToString(JSONHeader)
+
 	payload := jwtPayload{
-		ExpiredAt: strconv.FormatInt(requestedTime.Unix(), 10),
+		ExpiredAt: strconv.FormatInt(requestedTime.Add(5*time.Minute).Unix(), 10),
 		Payload:   data,
 		IssuedAt:  strconv.FormatInt(requestedTime.Unix(), 10),
 	}
